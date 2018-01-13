@@ -2,11 +2,11 @@
 
     if(isset($_POST['update_post'])){
 
-        $post_id            = intval($_POST['post_id']);
-        $post_title         = addslashes($_POST['title']);
-        $post_author        = addslashes($_POST['author']);
-        $post_category_id   = intval($_POST['post_category_id']);
-        $post_status        = addslashes($_POST['post_status']);
+        $post_id            = escape(intval($_POST['post_id']));
+        $post_title         = escape($_POST['title']);
+        $post_author        = escape($_POST['author']);
+        $post_category_id   = escape(intval($_POST['post_category_id']));
+        $post_status        = escape($_POST['post_status']);
 
         $post_image = $_FILES['image']['name'];
         $post_image_temp = $_FILES['image']['tmp_name'];
@@ -21,8 +21,8 @@
             }
         }
 
-        $post_tags = addslashes($_POST['post_tags']);
-        $post_content = addslashes($_POST['post_content']);
+        $post_tags = escape($_POST['post_tags']);
+        $post_content = escape($_POST['post_content']);
 
         $query = "UPDATE posts SET post_title = '{$post_title}',
                                    post_category_id = {$post_category_id},
@@ -63,6 +63,15 @@
                 $cat_list .= "<option value='{$cat_id}' {$selected}>{$cat_title}</option>";
             }
 
+            $author_list = getPostAuthor();
+            $authors = '';
+            foreach($author_list as $item){
+                $selected = ($item['id'] == $post_author) ? 'selected ' : '';
+                $authors .= "<option value='{$item['id']}' {$selected}>{$item['user_name']}</option>";
+            }
+
+
+            // Option for post_status
             $post_status_option = '';
             $selected = ($post_status == 'draft') ? 'selected' : '';
             $post_status_option .= "<option value='draft' {$selected}>Draft</option>";
@@ -86,7 +95,9 @@
             
                 <div class="form-group">
                     <label for="title">Post Author</label>
-                    <input type="text" class="form-control" name="author" value="{$post_author}">
+                    <select name="author" class="form-control">
+                        {$authors}
+                    </select>
                 </div>
                 
                 <div class="form-group">

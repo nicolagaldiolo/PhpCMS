@@ -1,5 +1,4 @@
 <?php include "includes/header.php"; ?>
-<?php include "includes/db.php"; ?>
 
     <!-- Navigation -->
     <?php include "includes/navigation.php"; ?>
@@ -13,7 +12,7 @@
             <div class="col-md-8">
 
                 <?php if(isset($_GET['category'])) :
-                    $cat_id = intval($_GET['category']);
+                    $cat_id = escape(intval($_GET['category']));
                 ?>
 
                     <h1 class="page-header">
@@ -30,13 +29,14 @@
                         extract($arr);
 
                         $post_content = substr($post_content, 0,200);
+                        $post_author_info = getPostAuthor($post_author);
                     ?>
 
                         <h2>
                             <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title ?></a>
                         </h2>
                         <p class="lead">
-                            by <a href="search.php"><?php echo $post_author ?></a>
+                            by <a href="author_posts.php?p_author=<?php echo $post_author_info[0]['id']; ?>"><?php echo $post_author_info[0]['user_name']; ?></a>
                         </p>
                         <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date ?></p>
                         <hr>

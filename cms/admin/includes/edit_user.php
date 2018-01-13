@@ -2,13 +2,12 @@
 
     if(isset($_POST['update_user'])){
 
-        $user_id            = intval($_POST['user_id']);
-        $user_firstname     = addslashes($_POST['user_firstname']);
-        $user_lastname      = addslashes($_POST['user_lastname']);
-        $user_email         = addslashes($_POST['user_email']);
-        $user_name          = addslashes($_POST['user_name']);
-        $user_password      = addslashes($_POST['user_password']);
-        $user_role          = addslashes($_POST['user_role']);
+        $user_id            = escape(intval($_POST['user_id']));
+        $user_firstname     = escape($_POST['user_firstname']);
+        $user_lastname      = escape($_POST['user_lastname']);
+        $user_email         = escape($_POST['user_email']);
+        $user_name          = escape($_POST['user_name']);
+        $user_role          = escape($_POST['user_role']);
 
         $user_image = $_FILES['user_image']['name'];
         $user_image_temp = $_FILES['user_image']['tmp_name'];
@@ -33,18 +32,11 @@
         $update_user = mysqli_query($connection, $query);
         confirmQuery($update_user);
 
-        if(!empty($user_password)){
-            $passwordSalt = password_hash($user_password, PASSWORD_DEFAULT);
-            $query = "UPDATE users SET user_password = '{$passwordSalt}'";
-            $update_user = mysqli_query($connection, $query);
-            confirmQuery($update_user);
-        }
-
         echo "<div class=\"alert alert-success\" role=\"alert\">User Updated <a href=\"users.php\">View Users</a></div>";
 
     }
 
-    if(isset($_GET['p_id'])){
+    if(isset($_GET['p_id']) && escape(intval($_GET['p_id'])) > 0){
         $user_id = $_GET['p_id'];
 
         $select = "SELECT * FROM users WHERE user_id = {$user_id}";
@@ -93,11 +85,6 @@
                     </div>
                 
                     <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" class="form-control" name="user_password" value="">
-                    </div>
-                
-                    <div class="form-group">
                         <label>Role</label>
                         <select name="user_role" class="form-control">
                             {$user_roles_option}
@@ -112,6 +99,8 @@
                 </form>
 HTML;
         }
+    }else{
+        header("Location: index.php");
     }
 
 ?>

@@ -17,23 +17,7 @@
                             <small>Author</small>
                         </h1>
 
-                        <?php
-
-                        $source = isset($_GET['source']) ? $_GET['source'] : '';
-
-                        switch ($source){
-                            //case 'add_post':
-                            //    include 'includes/add_post.php';
-                            //    break;
-                            //case 'edit_post':
-                            //    include 'includes/edit_post.php';
-                            //    break;
-                            default :
-                                include 'includes/view_all_comments.php';
-                                break;
-                        }
-
-                        ?>
+                        <?php include 'includes/view_all_comments.php'; ?>
 
                     </div>
 

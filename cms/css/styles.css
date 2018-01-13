@@ -1,0 +1,5 @@
+.pager li{ padding: 0 2px;}
+.pager li>a.active{
+    background: #000;
+    color:#fff;
+}

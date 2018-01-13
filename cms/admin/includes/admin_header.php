@@ -1,10 +1,13 @@
 <?php include "../includes/db.php"; ?>
 <?php include "functions.php"; ?>
 <?php ob_start(); ?>
-<?php session_start(); ?>
+<?php if(!isset($_SESSION)) {
+    session_start();
+} ?>
 
 <?php if(!isset($_SESSION['user_role'])){
     header("Location: ../index.php");
+    die();
 } ?>
 
 <!DOCTYPE html>
@@ -25,6 +28,7 @@
 
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">

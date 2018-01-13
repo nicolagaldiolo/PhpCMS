@@ -1,16 +1,15 @@
-<?php  include "includes/db.php"; ?>
- <?php  include "includes/header.php"; ?>
+<?php  include "includes/header.php"; ?>
 
 <?php
     $message = "";
     if(isset($_POST['submit'])){
-        $username   = addslashes($_POST['username']);
-        $email      = addslashes($_POST['email']);
-        $password   = addslashes($_POST['password']);
+        $username   = escape($_POST['username']);
+        $email      = escape($_POST['email']);
+        $password   = escape($_POST['password']);
 
         if(!empty($username) && !empty($email) && !empty($password) ){
 
-            $passwordSalt = password_hash($password, PASSWORD_DEFAULT);
+            $passwordSalt = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
 
             $query = "INSERT INTO users(user_name, user_email, user_password, user_role) VALUES ('$username', '$email', '$passwordSalt', 'subscriber')";
             $execute = mysqli_query($connection, $query);

@@ -16,7 +16,15 @@
     <tbody>
     <?php
 
-    $select = "SELECT * FROM comments";
+    if(isset($_GET['p_id']) && escape(intval($_GET['p_id'] > 0))){
+        $post_id = escape(intval(($_GET['p_id'])));
+        $where = "WHERE comment_post_id = {$post_id}";
+    }else{
+        $where = '';
+    }
+
+    $select = "SELECT * FROM comments {$where}";
+
     $query = mysqli_query($connection, $select);
     $result = '';
     while($arr = mysqli_fetch_assoc($query)){

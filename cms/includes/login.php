@@ -1,11 +1,12 @@
 <?php include "db.php"; ?>
+<?php include "../admin/functions.php"; ?>
 <?php session_start(); ?>
 
 <?php
 
     if(isset($_POST['login'])){
-        $username = addslashes($_POST['username']);
-        $password = addslashes($_POST['password']);
+        $username = escape($_POST['username']);
+        $password = escape($_POST['password']);
 
 
         $select = "SELECT * from users WHERE user_name = '{$username}'";

@@ -3,13 +3,13 @@
     <?php
         if(isset($_POST['update_profile'])){
 
-            $user_id            = intval($_POST['user_id']);
-            $user_firstname     = addslashes($_POST['user_firstname']);
-            $user_lastname      = addslashes($_POST['user_lastname']);
-            $user_email         = addslashes($_POST['user_email']);
-            $user_name          = addslashes($_POST['user_name']);
-            $user_password      = addslashes($_POST['user_password']);
-            $user_role          = addslashes($_POST['user_role']);
+            $user_id            = escape(intval($_POST['user_id']));
+            $user_firstname     = escape($_POST['user_firstname']);
+            $user_lastname      = escape($_POST['user_lastname']);
+            $user_email         = escape($_POST['user_email']);
+            $user_name          = escape($_POST['user_name']);
+            $user_password      = escape($_POST['user_password']);
+            $user_role          = escape($_POST['user_role']);
 
             $user_image = $_FILES['user_image']['name'];
             $user_image_temp = $_FILES['user_image']['tmp_name'];

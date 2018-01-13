@@ -9,19 +9,25 @@
         $cat_list .= "<option value='{$cat_id}'>{$cat_title}</option>";
     }
 
+    $author_list = getPostAuthor();
+    $authors = '';
+    foreach($author_list as $item){
+        $authors .= "<option value='{$item['id']}'>{$item['user_name']}</option>";
+    }
+
     if(isset($_POST['create_post'])){
 
-        $post_title         = addslashes($_POST['title']);
-        $post_author        = addslashes($_POST['author']);
-        $post_category_id   = intval($_POST['post_category_id']);
-        $post_status        = addslashes($_POST['post_status']);
+        $post_title         = escape($_POST['title']);
+        $post_author        = escape($_POST['author']);
+        $post_category_id   = escape(intval($_POST['post_category_id']));
+        $post_status        = escape($_POST['post_status']);
 
         $post_image = $_FILES['image']['name'];
         $post_image_temp = $_FILES['image']['tmp_name'];
         move_uploaded_file($post_image_temp, "../images/{$post_image}");
 
-        $post_tags = addslashes($_POST['post_tags']);
-        $post_content = addslashes($_POST['post_content']);
+        $post_tags = escape($_POST['post_tags']);
+        $post_content = escape($_POST['post_content']);
         $post_date = date('d-m-y');
 
         $query = "INSERT INTO posts(post_category_id, 
@@ -68,7 +74,9 @@
 
     <div class="form-group">
        <label for="title">Post Author</label>
-        <input type="text" class="form-control" name="author">
+        <select class="form-control" name="author">
+            <?php echo $authors; ?>
+        </select>
     </div>
 
     <div class="form-group">
