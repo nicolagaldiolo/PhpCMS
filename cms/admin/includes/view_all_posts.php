@@ -1,5 +1,7 @@
 <?php
 
+     include "includes/delete_modal.php";
+
     if(isset($_POST['checkBoxArray']) && isset($_POST['bulk_options'])){
         $checkBoxArray = $_POST['checkBoxArray'];
         $bulk_options = $_POST['bulk_options'];
@@ -118,7 +120,7 @@
         $result .= "  <td>{$post_views_count}</td>";
         $result .= "  <td><a href='../post.php?&p_id={$post_id}'>View post</a></td>";
         $result .= "  <td><a href='?source=edit_post&p_id={$post_id}'>Edit</a></td>";
-        $result .= "  <td><a class='confirmDelete' href='?delete={$post_id}'>Delete</a></td>";
+        $result .= "  <td><a class='confirmDeleteModal' href='#' data-toggle=\"modal\" data-target=\"#myModal\" rel='?delete={$post_id}'>Delete</a></td>";
         $result .= "</tr>";
     }
 

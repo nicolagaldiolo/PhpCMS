@@ -20,13 +20,14 @@
                     $list = "";
                     while ($arr = mysqli_fetch_assoc($qry)){
                         extract($arr);
-                        $list .= "<li><a href=\"\">{$cat_title}</a></li>";
+                        $list .= "<li><a href=\"category.php?category={$cat_id}\">{$cat_title}</a></li>";
                     }
                     echo $list;
                 ?>
             </ul>
 
             <ul class="nav nav navbar-nav navbar-right">
+                <li><a href="contact.php">Contact</a></li>
                 <?php
                 if(isset($_SESSION['user_role'])){
                     echo "<li><a href=\"admin\">Admin</a></li>";

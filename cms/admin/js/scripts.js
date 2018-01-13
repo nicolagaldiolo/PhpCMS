@@ -8,8 +8,13 @@ $(document).ready(function(){
     });
 
     $('.confirmDelete').click(function(){
-        console.log("Ciao");
         return confirm("Are you sure to delete?");
+    });
+
+    $('.confirmDeleteModal').click(function(event){
+        event.preventDefault();
+        var modalAction = $(this).attr("rel");
+        $('.modal_delete_link').attr("href", modalAction);
     });
 
     /*var preloader = "<div id=\"load-screen\"'><div id=\"loading\"></div></div>";
