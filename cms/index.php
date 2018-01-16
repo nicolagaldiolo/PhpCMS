@@ -33,51 +33,67 @@
                     }
 
 
+                    $where = '';
+                    if(!isset($_SESSION['user_role'])){
+                        $where .= "WHERE post_status = 'published'";
+                    }
 
-                    $select = "SELECT * FROM posts WHERE post_status = 'published' LIMIT {$page_filter},{$item_for_page}";
+                    $select = "SELECT * FROM posts {$where} LIMIT {$page_filter},{$item_for_page}";
                     $qry = mysqli_query($connection, $select);
-                    while ($arr = mysqli_fetch_assoc($qry)) :
-                        extract($arr);
+                    if(!$qry){
+                        echo mysqli_error($connection);
+                    }
+                    $record_num = mysqli_num_rows($qry);
+                    if($record_num <= 0){
+                        echo "<div class=\"alert alert-info\" role=\"alert\">No posts found</div>";
+                    }else{
+                        while ($arr = mysqli_fetch_assoc($qry)) :
+                            extract($arr);
 
-                        $post_content = substr($post_content, 0,200);
+                            $post_content = substr($post_content, 0,200);
 
-                        $post_author_info = getPostAuthor($post_author);
+                            $post_author_info = getPostAuthor($post_author);
 
-                ?>
+                            ?>
 
-                        <h2>
-                            <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title ?></a>
-                        </h2>
-                        <p class="lead">
-                            by <a href="author_posts.php?p_author=<?php echo $post_author_info[0]['id'] ?>"><?php echo $post_author_info[0]['user_name'] ?></a>
-                        </p>
-                        <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date ?></p>
-                        <hr>
-                        <a href="post.php?p_id=<?php echo $post_id; ?>">
-                            <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
-                        </a>
-                        <hr>
-                        <p><?php echo $post_content ?></p>
-                        <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-                        <hr>
+                            <h2>
+                                <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title ?></a>
+                            </h2>
+                            <p class="lead">
+                                by <a href="author_posts.php?p_author=<?php echo $post_author_info[0]['id'] ?>"><?php echo $post_author_info[0]['user_name'] ?></a>
+                                <?php if($post_status == 'draft') : ?>
+                                    <span class="label label-info">Draft</span>
+                                <?php endif; ?>
+                            </p>
+                            <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date ?></p>
+                            <hr>
+                            <a href="post.php?p_id=<?php echo $post_id; ?>">
+                                <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
+                            </a>
+                            <hr>
+                            <p><?php echo $post_content ?></p>
+                            <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                            <hr>
 
-                <?php endwhile; ?>
+                        <?php endwhile;
 
-                <!-- /.row -->
-                <?php if($pager_count > 1): ?>
-                    <ul class="pager">
-                        <?php
-                            $page = '';
-                            for($i=1; $i <= $pager_count; $i++) {
+                        if($pager_count > 1): ?>
+                            <ul class="pager">
+                                <?php
+                                $page = '';
+                                for($i=1; $i <= $pager_count; $i++) {
 
-                                $active = (isset($_GET['page']) && escape(intval($_GET['page'])) == $i ) ? 'class="active"' : '';
+                                    $active = (isset($_GET['page']) && escape(intval($_GET['page'])) == $i ) ? 'class="active"' : '';
 
-                                $page .= "<li><a {$active} href=\"index.php?page={$i}\">{$i}</a></li>";
-                            }
-                            echo $page;
-                        ?>
-                    </ul>
-                <?php endif; ?>
+                                    $page .= "<li><a {$active} href=\"index.php?page={$i}\">{$i}</a></li>";
+                                }
+                                echo $page;
+                                ?>
+                            </ul>
+                        <?php endif; ?>
+
+                    <?php } ?>
+
 
             </div>
 

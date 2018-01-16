@@ -59,8 +59,6 @@
                                     die("Query Failed" . mysqli_error($connection));
                                 }
 
-                                //$query = "UPDATE posts SET post_comment_count = (post_comment_count + 1) WHERE post_id = {$post_id} ";
-                                //$update_post = mysqli_query($connection, $query);
                             }else{
                                 echo "The Follow field not be empty";
                             }

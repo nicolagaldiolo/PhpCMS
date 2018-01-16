@@ -33,15 +33,9 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
 
-                                        <?php
-                                            $select = "SELECT post_id FROM posts";
-                                            $query = mysqli_query($connection, $select);
-                                            $record_count = mysqli_num_rows($query);
-                                            if($record_count) {
-                                                echo "<div class='huge'>{$record_count}</div>";
-                                            }
-                                        ?>
-
+                                        <?php if($record_count = recordCount('post_id', 'posts')) {
+                                            echo "<div class='huge'>{$record_count}</div>";
+                                        } ?>
 
                                         <div>Posts</div>
                                     </div>
@@ -64,14 +58,10 @@
                                         <i class="fa fa-comments fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <?php
-                                            $select = "SELECT comment_id FROM comments";
-                                            $query = mysqli_query($connection, $select);
-                                            $record_count = mysqli_num_rows($query);
-                                            if($record_count) {
-                                                echo "<div class='huge'>{$record_count}</div>";
-                                            }
-                                        ?>
+                                        <?php if($record_count = recordCount('comment_id', 'comments')) {
+                                            echo "<div class='huge'>{$record_count}</div>";
+                                        } ?>
+
                                         <div>Comments</div>
                                     </div>
                                 </div>
@@ -93,14 +83,9 @@
                                         <i class="fa fa-user fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <?php
-                                            $select = "SELECT user_id FROM users";
-                                            $query = mysqli_query($connection, $select);
-                                            $record_count = mysqli_num_rows($query);
-                                            if($record_count) {
-                                                echo "<div class='huge'>{$record_count}</div>";
-                                            }
-                                        ?>
+                                        <?php if($record_count = recordCount('user_id', 'users')) {
+                                            echo "<div class='huge'>{$record_count}</div>";
+                                        } ?>
                                         <div> Users</div>
                                     </div>
                                 </div>
@@ -122,14 +107,10 @@
                                         <i class="fa fa-list fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <?php
-                                            $select = "SELECT cat_id FROM categories";
-                                            $query = mysqli_query($connection, $select);
-                                            $record_count = mysqli_num_rows($query);
-                                            if($record_count) {
-                                                echo "<div class='huge'>{$record_count}</div>";
-                                            }
-                                        ?>
+                                        <?php if($record_count = recordCount('cat_id', 'categories')) {
+                                            echo "<div class='huge'>{$record_count}</div>";
+                                        } ?>
+
                                         <div>Categories</div>
                                     </div>
                                 </div>
@@ -196,37 +177,37 @@
                 <div class="row">
                     <div class="col-md-12">
                         <script type="text/javascript">
-                        google.load("visualization", "1.1", {packages:["bar"]});
-                        google.setOnLoadCallback(drawChart);
-                        function drawChart() {
-                            var data = google.visualization.arrayToDataTable([
-                                ['Data', 'Count'],
-                                <?php
+                            google.load("visualization", "1.1", {packages:["bar"]});
+                            google.setOnLoadCallback(drawChart);
+                            function drawChart() {
+                                var data = google.visualization.arrayToDataTable([
+                                    ['Data', 'Count'],
+                                    <?php
 
-                                $element_text = ['All Posts','Active Posts','Draft Posts', 'Comments','Pending Comments','Users','Subscribers','Categories'];
-                                $element_count = [$posts,$post_published,$post_draft,$comments,$comments_pending,$users,$subscriber,$categories];
+                                    $element_text = ['All Posts','Active Posts','Draft Posts', 'Comments','Pending Comments','Users','Subscribers','Categories'];
+                                    $element_count = [$posts,$post_published,$post_draft,$comments,$comments_pending,$users,$subscriber,$categories];
 
-                                for($i =0;$i < 8; $i++) {
-                                    echo "['{$element_text[$i]}'" . "," . "{$element_count[$i]}],";
-                                }
+                                    for($i =0;$i < 8; $i++) {
+                                        echo "['{$element_text[$i]}'" . "," . "{$element_count[$i]}],";
+                                    }
 
-                                ?>
+                                    ?>
 
 
-                            ]);
+                                ]);
 
-                            var options = {
-                                chart: {
-                                    title: 'Company Perfoarmance',
-                                    subtitle: 'Sales, Expenses, and Profit: 2014-1017',
-                                }
-                            };
+                                var options = {
+                                    chart: {
+                                        title: 'Company Perfoarmance',
+                                        subtitle: 'Sales, Expenses, and Profit: 2014-1017',
+                                    }
+                                };
 
-                            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+                                var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
 
-                            chart.draw(data, options);
-                        }
-                    </script>
+                                chart.draw(data, options);
+                            }
+                        </script>
 
 
                         <div id="columnchart_material" style="width:auto; height: 500px;"></div>

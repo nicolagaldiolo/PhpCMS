@@ -1,7 +1,5 @@
 <?php
 
-     include "includes/delete_modal.php";
-
     if(isset($_POST['checkBoxArray']) && isset($_POST['bulk_options'])){
         $checkBoxArray = $_POST['checkBoxArray'];
         $bulk_options = $_POST['bulk_options'];
@@ -86,20 +84,18 @@
     <tbody>
     <?php
 
-    $select = "SELECT * FROM posts";
+    $select = <<<SQL
+        SELECT p.*, cat.cat_title, (SELECT COUNT(comment_id) FROM comments WHERE comment_post_id = p.post_id) AS post_comment_count
+        FROM posts p 
+        LEFT JOIN categories cat ON cat.cat_id = p.post_category_id
+        ORDER BY p.post_id
+SQL;
+
     $query = mysqli_query($connection, $select);
     $result = '';
     while($arr = mysqli_fetch_assoc($query)){
         extract($arr);
 
-        $select = "SELECT * FROM categories WHERE cat_id = {$post_category_id}";
-        $qry_getcat = mysqli_query($connection, $select);
-        $cat_title = ($arrCat = mysqli_fetch_assoc($qry_getcat)) ? $arrCat['cat_title'] : '';
-
-        $select = "SELECT comment_id FROM comments WHERE comment_post_id = {$post_id}";
-        $qry_getcomment = mysqli_query($connection, $select);
-        confirmQuery($qry_getcomment);
-        $post_comment_count = mysqli_num_rows($qry_getcomment);
         if($post_comment_count >= 1){
             $post_comment_count = "<a href='comments.php?p_id={$post_id}'>{$post_comment_count}</a>";
         }

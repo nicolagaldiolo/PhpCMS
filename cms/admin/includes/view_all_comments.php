@@ -31,9 +31,9 @@
         extract($arr);
 
         $select = "SELECT post_id, post_title FROM posts WHERE post_id = {$comment_post_id}";
+
         $qry_getpost = mysqli_query($connection, $select);
 
-        $post_link = '';
         if($arrPost = mysqli_fetch_assoc($qry_getpost)){
           $post_id = $arrPost['post_id'];
           $post_title = $arrPost['post_title'];
@@ -53,7 +53,7 @@
         }else{
             $result .= "  <td><a href='comments.php?status=approved&c_id={$comment_id}'>Approve</a></td>";
         }
-        $result .= "  <td><a class='confirmDelete' href='comments.php?delete={$comment_id}'>Delete</a></td>";
+        $result .= "  <td><a class='confirmDeleteModal' href='#' data-toggle=\"modal\" data-target=\"#myModal\" rel='comments.php?delete={$comment_id}'>Delete</a></td>";
         $result .= "</tr>";
     }
 

@@ -33,7 +33,7 @@
         $result .= "  <td>{$user_role}</td>";
         $result .= "  <td><a href='?source=edit_password&p_id={$user_id}'>Edit password</a></td>";
         $result .= "  <td><a href='?source=edit_user&p_id={$user_id}'>Edit</a></td>";
-        $result .= "  <td><a class='confirmDelete' href='?delete={$user_id}'>Delete</a></td>";
+        $result .= "  <td><a class='confirmDeleteModal' href='#' data-toggle=\"modal\" data-target=\"#myModal\" rel='?delete={$user_id}'>Delete</a></td>";
         $result .= "</tr>";
     }
 

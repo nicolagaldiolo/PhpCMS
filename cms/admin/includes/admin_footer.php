@@ -1,3 +1,5 @@
+<?php include "includes/delete_modal.php"; ?>
+
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
 <script src='js/tinymce/tinymce.min.js'></script>

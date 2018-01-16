@@ -113,7 +113,7 @@
             $list .= "  <td>{$cat_id}</td>";
             $list .= "  <td>{$cat_title}</td>";
             $list .= "  <td><a href='?edit={$cat_id}'>Edit</a></td>";
-            $list .= "  <td><a class='confirmDelete' href='?delete={$cat_id}'>Delete</a></td>";
+            $list .= "  <td><a class='confirmDeleteModal' href='#' data-toggle=\"modal\" data-target=\"#myModal\" rel='?delete={$cat_id}'>Delete</a></td>";
             $list .= "<tr>";
         }
         return $list;
@@ -133,4 +133,14 @@
 
     function intvalFunction($i){
         return intval($i);
+    }
+
+    function recordCount($field = '*', $table){
+        global $connection;
+        if($table){
+            $select = "SELECT {$field} FROM {$table}";
+            $query = mysqli_query($connection, $select);
+            confirmQuery($query);
+            return mysqli_num_rows($query);
+        }
     }

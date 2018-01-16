@@ -15,13 +15,17 @@
             <ul class="nav navbar-nav">
                 <?php
 
+                    $cat_page_id = (isset($_GET['category']) && intval($_GET['category']) > 0) ? escape(intval($_GET['category'])) : '';
+
                     $select = "SELECT * FROM categories";
                     $qry = mysqli_query($connection, $select);
                     $list = "";
                     while ($arr = mysqli_fetch_assoc($qry)){
                         extract($arr);
-                        $list .= "<li><a href=\"category.php?category={$cat_id}\">{$cat_title}</a></li>";
+                        $class = ($cat_id == $cat_page_id) ? 'class="active"' : '';
+                        $list .= "<li {$class}><a href=\"category.php?category={$cat_id}\">{$cat_title}</a></li>";
                     }
+
                     echo $list;
                 ?>
             </ul>
