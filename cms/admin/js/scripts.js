@@ -17,6 +17,14 @@ $(document).ready(function(){
         $('.modal_delete_link').attr("href", modalAction);
     });
 
+    $('.confirmDeletePostModal').click(function(event){
+        event.preventDefault();
+        var modalAction = $(this).attr("rel");
+
+        $('#element_id').val(modalAction);
+
+    });
+
     /*var preloader = "<div id=\"load-screen\"'><div id=\"loading\"></div></div>";
     $('body').prepend(preloader);
 

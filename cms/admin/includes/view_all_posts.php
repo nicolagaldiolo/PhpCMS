@@ -116,7 +116,7 @@ SQL;
         $result .= "  <td>{$post_views_count}</td>";
         $result .= "  <td><a href='../post.php?&p_id={$post_id}'>View post</a></td>";
         $result .= "  <td><a href='?source=edit_post&p_id={$post_id}'>Edit</a></td>";
-        $result .= "  <td><a class='confirmDeleteModal' href='#' data-toggle=\"modal\" data-target=\"#myModal\" rel='?delete={$post_id}'>Delete</a></td>";
+        $result .= "  <td><a class='confirmDeletePostModal' href='#' data-toggle=\"modal\" data-target=\"#myModalPost\" rel='{$post_id}'>Delete</a></td>";
         $result .= "</tr>";
     }
 
@@ -124,8 +124,8 @@ SQL;
 
 
 
-    if(isset($_GET['delete'])){
-        $delete_post_id = $_GET['delete'];
+    if(isset($_POST['delete'])){
+        $delete_post_id = escape($_POST['id']);
         $query = "DELETE FROM posts WHERE post_id = {$delete_post_id}";
         $execute = mysqli_query($connection, $query);
         header("Location: {$_SERVER['PHP_SELF']}");

@@ -1,4 +1,5 @@
 <?php include "includes/delete_modal.php"; ?>
+<?php include "includes/delete_post_modal.php"; ?>
 
 <!-- jQuery -->
 <script src="js/jquery.js"></script>

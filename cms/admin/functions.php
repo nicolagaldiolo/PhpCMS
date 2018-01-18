@@ -4,6 +4,10 @@
         include "../includes/db.php";
     }
 
+    function redirect($location){
+        return header("Location: {$location}");
+    }
+
     function escape($string){
         global $connection;
         return mysqli_real_escape_string($connection, $string);
@@ -144,3 +148,85 @@
             return mysqli_num_rows($query);
         }
     }
+
+    function is_admin($username){
+        global $connection;
+        $query = "SELECT user_role FROM users WHERE user_name = '{$username}'";
+
+        $execute = mysqli_query($connection, $query);
+        confirmQuery($execute);
+
+        $row = mysqli_fetch_assoc($execute);
+
+        return $row['user_role'] == 'admin'  ? TRUE : FALSE;
+
+    }
+
+    function username_exists($username){
+        global $connection;
+        $query = "SELECT user_name FROM users WHERE user_name = '{$username}'";
+
+        $execute = mysqli_query($connection, $query);
+        confirmQuery($execute);
+
+        return ( mysqli_num_rows($execute) > 0) ? TRUE : FALSE;
+
+    }
+
+    function email_exists($email){
+        global $connection;
+        $query = "SELECT user_email FROM users WHERE user_email = '{$email}'";
+
+        $execute = mysqli_query($connection, $query);
+        confirmQuery($execute);
+
+        return ( mysqli_num_rows($execute) > 0) ? TRUE : FALSE;
+
+    }
+
+    function register_user($username, $email, $password){
+        global $connection;
+
+        $username   = escape($username);
+        $email      = escape($email);
+        $password   = escape($password);
+
+
+
+        if(!empty($username) && !empty($email) && !empty($password) ){
+
+            $passwordSalt = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+
+            $query = "INSERT INTO users(user_name, user_email, user_password, user_role) VALUES ('$username', '$email', '$passwordSalt', 'subscriber')";
+            $execute = mysqli_query($connection, $query);
+            confirmQuery($execute);
+        }
+    }
+
+    function login_user($username, $password){
+        global $connection;
+
+        $username = escape($username);
+        $password = escape($password);
+
+        $select = "SELECT * from users WHERE user_name = '{$username}'";
+        $query = mysqli_query($connection, $select);
+        confirmQuery($query);
+
+        if($arr = mysqli_fetch_assoc($query)){
+            extract($arr);
+
+            if(password_verify($password, $user_password)) {
+                $_SESSION['username'] = $user_name;
+                $_SESSION['firstname'] = $user_firstname;
+                $_SESSION['lastname'] = $user_lastname;
+                $_SESSION['user_role'] = $user_role;
+                redirect("/cms/admin");
+
+            }
+
+        }
+        redirect("../index.php");
+
+    }
+
