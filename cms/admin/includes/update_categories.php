@@ -2,22 +2,32 @@
 
 // UPDATE CATEGORY
 if(isset($_POST['update_category'])){
-    $cat_id     = $_POST['cat_id'];
-    $cat_title  = $_POST['cat_title'];
-    $query = "UPDATE categories SET cat_title = '{$cat_title}' WHERE cat_id = {$cat_id}";
-    $update_query = mysqli_query($connection, $query);
-    if(!$update_query){
+    $cat_id     = escape($_POST['cat_id']);
+    $cat_title  = escape($_POST['cat_title']);
+
+    $stmt = mysqli_prepare($connection, "UPDATE categories SET cat_title = '{$cat_title}' WHERE cat_id = ?");
+    mysqli_stmt_bind_param($stmt, 'i', $cat_id);
+    mysqli_stmt_execute($stmt);
+
+    if(!$stmt){
         die("QUERY FAILED" . mysqli_error($connection));
     }
+
+    mysqli_stmt_close($stmt);
+    redirect($_SERVER['PHP_SELF']);
+
 }
 
 if(isset($_GET['edit'])){
     $cat_id = $_GET['edit'];
 
-    $select = "SELECT * FROM categories WHERE cat_id = {$cat_id}";
-    $qry_editcat = mysqli_query($connection, $select);
+    $stmt = mysqli_prepare($connection, "SELECT * FROM categories WHERE cat_id = ?");
+    mysqli_stmt_bind_param($stmt, 'i', $cat_id);
+    mysqli_stmt_execute($stmt);
 
-    if ($arr = mysqli_fetch_assoc($qry_editcat)){
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($arr = mysqli_fetch_assoc($result)){
         extract($arr);
         echo $html = <<<HTML
         <form action="" method="post">
@@ -32,6 +42,8 @@ if(isset($_GET['edit'])){
         </form>    
 HTML;
     }
+
+    mysqli_stmt_close($stmt);
 
 }
 

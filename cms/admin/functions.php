@@ -92,14 +92,20 @@
             if($cat_title == ""){
                 echo "<div class=\"alert alert-warning\" role=\"alert\">The field should not be empty</div>";
             }else{
-                $query = "INSERT INTO categories(cat_title) VALUE('{$cat_title}')";
-                $create_cat = mysqli_query($connection, $query);
-                if(!$create_cat){
+
+                $stmt = mysqli_prepare($connection, "INSERT INTO categories(cat_title) VALUE(?)");
+                mysqli_stmt_bind_param($stmt, 's', $cat_title);
+                mysqli_stmt_execute($stmt);
+
+                if(!$stmt){
                     die('QUERY FAILED' . mysqli_error($connection));
                 }else{
                     echo "<div class=\"alert alert-success\" role=\"alert\">Category added</div>";
                 }
+
             }
+
+            mysqli_stmt_close($stmt);
         }
 
     }
@@ -108,10 +114,12 @@
 
         global $connection;
 
-        $select = "SELECT * FROM categories";
-        $qry_admincat = mysqli_query($connection, $select);
+        $stmt = mysqli_prepare($connection, "SELECT * FROM categories");
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
         $list = "";
-        while ($arr = mysqli_fetch_assoc($qry_admincat)){
+        while ($arr = mysqli_fetch_assoc($result)){
             extract($arr);
             $list .= "<tr>";
             $list .= "  <td>{$cat_id}</td>";
@@ -129,11 +137,17 @@
 
         if(isset($_GET['delete']) && escape(intval($_GET['delete'])) > 0){
             $delete_cat_id = $_GET['delete'];
-            $query = "DELETE FROM categories WHERE cat_id = {$delete_cat_id}";
-            $execute = mysqli_query($connection, $query);
+            $stmt = mysqli_prepare($connection, "DELETE FROM categories WHERE cat_id = ? ");
+            mysqli_stmt_bind_param($stmt,"i", $delete_cat_id);
+            mysqli_stmt_execute($stmt);
+
+            mysqli_stmt_close($stmt);
+
             header("Location: {$_SERVER['PHP_SELF']}");
         }
     }
+
+
 
     function intvalFunction($i){
         return intval($i);
@@ -226,7 +240,7 @@
             }
 
         }
-        redirect("../index.php");
+        redirect("/cms/index.php");
 
     }
 
