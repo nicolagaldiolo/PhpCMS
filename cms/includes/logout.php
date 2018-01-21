@@ -1,6 +1,5 @@
-<?php include "db.php"; ?>
-<?php include "../admin/functions.php"; ?>
 <?php session_start(); ?>
+<?php include "../config/config.php"; ?>
 
 <?php
 
@@ -9,6 +8,6 @@
     unset($_SESSION['lastname']);
     unset($_SESSION['user_role']);
 
-    header("Location: ../index.php");
+    redirect("../index.php");
 
 ?>

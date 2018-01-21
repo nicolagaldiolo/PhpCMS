@@ -1,18 +1,33 @@
 <?php
 
     if(!isset($connection)) {
-        include "../includes/db.php";
+        include "../config/db.php";
     }
 
     function redirect($location){
-        return header("Location: {$location}");
+        header("Location:" . $location);
+        exit;
+    }
+
+    function ifItIsMethod($method = null){
+        return ($_SERVER['REQUEST_METHOD'] == strtoupper($method)) ? true : false;
+    }
+
+    function ifLoggedIn(){
+        return ( isset($_SESSION['user_role']) && isset($_SESSION['username']) ) ? true : false;
+    }
+
+    function checkUserLoggedAndRedirect($location = null){
+        if(ifLoggedIn()){
+            redirect($location);
+        }
     }
 
     function escape($string){
         global $connection;
         return mysqli_real_escape_string($connection, $string);
-
     }
+
 
     function user_online(){
         if(!isset($_SESSION)) {
@@ -198,6 +213,19 @@
 
     }
 
+    function password_token_exists($token){
+        global $connection;
+
+        $stmt = mysqli_prepare($connection, "SELECT user_id FROM users WHERE token = ? ");
+        mysqli_stmt_bind_param($stmt, "s", $token);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+
+        $result = (mysqli_stmt_num_rows($stmt) >= 1) ? true : false;
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
+
     function register_user($username, $email, $password){
         global $connection;
 
@@ -214,6 +242,21 @@
             $query = "INSERT INTO users(user_name, user_email, user_password, user_role) VALUES ('$username', '$email', '$passwordSalt', 'subscriber')";
             $execute = mysqli_query($connection, $query);
             confirmQuery($execute);
+
+            $options = array(
+                'cluster' => getenv('APP_CLUSTER'),
+                'encrypted' => getenv('APP_ENCRYPTED')
+            );
+            $pusher = new Pusher\Pusher(
+                getenv('APP_KEY'),
+                getenv('APP_SECRET'),
+                getenv('APP_ID'),
+                $options
+            );
+
+            $data['message'] = $username . ' just created an account.';
+            $pusher->trigger('my-channel', 'user-register', $data);
+
         }
     }
 
@@ -236,11 +279,8 @@
                 $_SESSION['lastname'] = $user_lastname;
                 $_SESSION['user_role'] = $user_role;
                 redirect("/cms/admin");
-
             }
-
         }
-        redirect("/cms/index.php");
-
+        redirect($_SERVER['PHP_SELF']);
     }
 

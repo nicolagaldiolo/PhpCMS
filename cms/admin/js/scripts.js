@@ -44,4 +44,4 @@ function loadUserOnline(){
 
 setInterval(function(){
     loadUserOnline();
-}, 60000);
+}, 1000);

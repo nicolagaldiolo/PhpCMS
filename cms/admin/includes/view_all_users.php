@@ -44,10 +44,8 @@
         $query = "DELETE FROM users WHERE user_id = {$delete_post_id}";
         $execute = mysqli_query($connection, $query);
         confirmQuery($execute);
-        header("Location: {$_SERVER['PHP_SELF']}");
+        redirect($_SERVER['PHP_SELF']);
     }
-
-
 
     ?>
 

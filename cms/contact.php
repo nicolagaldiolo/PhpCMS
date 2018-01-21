@@ -1,4 +1,5 @@
-<?php  include "includes/header.php"; ?>
+<?php include "config/config.php"; ?>
+<?php include "includes/header.php"; ?>
 
 <?php
     $response = "";

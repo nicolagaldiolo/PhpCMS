@@ -1,3 +1,4 @@
+<?php include "../config/config.php"; ?>
 <?php include "includes/admin_header.php"; ?>
     <div id="wrapper">
 
@@ -223,4 +224,27 @@
     </div>
     <!-- /#wrapper -->
 
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // Enable pusher logging - don't include this in production
+            Pusher.logToConsole = true;
+
+            var pusher = new Pusher('<?php echo getenv('APP_KEY'); ?>', {
+                cluster: '<?php echo getenv('APP_CLUSTER'); ?>',
+                encrypted: <?php echo getenv('APP_ENCRYPTED'); ?>
+            });
+
+            var channel = pusher.subscribe('my-channel');
+            channel.bind('user-register', function(data) {
+                toastr.warning(data.message);
+            });
+        })
+    </script>
+
+
+
 <?php include "includes/admin_footer.php"; ?>
+
+
+

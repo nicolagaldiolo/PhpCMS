@@ -1,3 +1,4 @@
+<?php include "config/config.php"; ?>
 <?php include "includes/header.php"; ?>
 
 <!-- Navigation -->
@@ -32,7 +33,7 @@
                     <h1 class="page-header"> <?php echo $post_title ?></h1>
 
                     <p class="lead">
-                        by <a href="author_posts.php?p_author=<?php echo $post_author_info[0]['id'] ?>"><?php echo $post_author_info[0]['user_name'] ?></a>
+                        by <a href="/cms/author_posts/<?php echo $post_author_info[0]['id'] ?>"><?php echo $post_author_info[0]['user_name'] ?></a>
                     </p>
                     <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date ?></p>
                     <hr>

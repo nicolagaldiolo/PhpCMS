@@ -1,13 +1,10 @@
-<?php include "../includes/db.php"; ?>
-<?php include "functions.php"; ?>
 <?php ob_start(); ?>
 <?php if(!isset($_SESSION)) {
     session_start();
 } ?>
 
 <?php if(!isset($_SESSION['user_role'])){
-    header("Location: ../index.php");
-    die();
+    redirect("../index.php");
 } ?>
 
 <!DOCTYPE html>
@@ -32,6 +29,7 @@
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -41,6 +39,13 @@
     <![endif]-->
 
 
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <script src='js/tinymce/tinymce.min.js'></script>
+    <script src="js/scripts.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 </head>
 

@@ -1,3 +1,4 @@
+<?php include "config/config.php"; ?>
 <?php include "includes/header.php"; ?>
 
     <!-- Navigation -->
@@ -44,7 +45,7 @@
                             ?>
 
                             <h2>
-                                <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title ?></a>
+                                <a href="/cms/post/<?php echo $post_id; ?>"><?php echo $post_title ?></a>
                             </h2>
                             <p class="lead">
                                 by
@@ -58,7 +59,7 @@
                             <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
                             <hr>
                             <p><?php echo $post_content ?></p>
-                            <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More <span
+                            <a class="btn btn-primary" href="/cms/post/<?php echo $post_id; ?>">Read More <span
                                         class="glyphicon glyphicon-chevron-right"></span></a>
                             <hr>
 
@@ -69,7 +70,7 @@
                         echo "<div class=\"alert alert-info\" role=\"alert\">No posts found</div>";
                     }
 
-                    mysqli_stmt_close();
+                    mysqli_stmt_close($stmt);
                 }
                 ?>
 

@@ -1,3 +1,4 @@
+<?php include "../config/config.php"; ?>
 <?php include "includes/admin_header.php"; ?>
 
     <?php
