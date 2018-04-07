@@ -1,7 +1,7 @@
 <?php
     include "config/config.php";
-    include "includes/header.php";
-    include "includes/navigation.php";
+    include "partials/header.php";
+    include "partials/navigation.php";
 
     if( !isset($_GET['token']) && !isset($_GET['email'])) {
         redirect("/cms/");
@@ -109,7 +109,7 @@
 
     <hr>
 
-    <?php include "includes/footer.php";?>
+    <?php include "partials/footer.php";?>
 
 </div> <!-- /.container -->
 

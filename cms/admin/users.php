@@ -1,5 +1,5 @@
 <?php include "../config/config.php"; ?>
-<?php include "includes/admin_header.php"; ?>
+<?php include "partials/admin_header.php"; ?>
 
 <?php if(!is_admin($_SESSION['username'])) {
     header("Location: index.php");
@@ -9,7 +9,7 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <?php include "includes/admin_navigation.php"; ?>
+        <?php include "partials/admin_navigation.php"; ?>
 
         <div id="page-wrapper">
 
@@ -29,16 +29,16 @@
 
                         switch ($source){
                             case 'add_user':
-                                include 'includes/add_user.php';
+                                include 'partials/add_user.php';
                                 break;
                             case 'edit_user':
-                                include 'includes/edit_user.php';
+                                include 'partials/edit_user.php';
                                 break;
                             case 'edit_password':
-                                include 'includes/edit_password.php';
+                                include 'partials/edit_password.php';
                                 break;
                             default :
-                                include 'includes/view_all_users.php';
+                                include 'partials/view_all_users.php';
                                 break;
                         }
 
@@ -58,4 +58,4 @@
     </div>
     <!-- /#wrapper -->
 
-<?php include "includes/admin_footer.php"; ?>
+<?php include "partials/admin_footer.php"; ?>

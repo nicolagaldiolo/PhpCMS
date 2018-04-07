@@ -1,7 +1,7 @@
 <?php
     include "config/config.php";
-    include "includes/header.php";
-    include "includes/navigation.php";
+    include "partials/header.php";
+    include "partials/navigation.php";
 
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
@@ -127,7 +127,7 @@ if( !isset($_GET['forgot']) || escape(trim($_GET['forgot'])) == '') {
 
     <hr>
 
-    <?php include "includes/footer.php";?>
+    <?php include "partials/footer.php";?>
 
 </div> <!-- /.container -->
 

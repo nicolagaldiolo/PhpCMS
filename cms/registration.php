@@ -1,5 +1,5 @@
 <?php include "config/config.php"; ?>
-<?php include "includes/header.php"; ?>
+<?php include "partials/header.php"; ?>
 
 <?php
     $message = "";
@@ -51,7 +51,7 @@
 
     <!-- Navigation -->
     
-    <?php  include "includes/navigation.php"; ?>
+    <?php  include "partials/navigation.php"; ?>
     
  
     <!-- Page Content -->
@@ -95,4 +95,4 @@
 
 
 
-<?php include "includes/footer.php";?>
+<?php include "partials/footer.php";?>

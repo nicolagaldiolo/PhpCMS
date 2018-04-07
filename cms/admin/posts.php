@@ -1,10 +1,10 @@
 <?php include "../config/config.php"; ?>
-<?php include "includes/admin_header.php"; ?>
+<?php include "partials/admin_header.php"; ?>
 
     <div id="wrapper">
 
         <!-- Navigation -->
-        <?php include "includes/admin_navigation.php"; ?>
+        <?php include "partials/admin_navigation.php"; ?>
 
         <div id="page-wrapper">
 
@@ -24,13 +24,13 @@
 
                         switch ($source){
                             case 'add_post':
-                                include 'includes/add_post.php';
+                                include 'partials/add_post.php';
                                 break;
                             case 'edit_post':
-                                include 'includes/edit_post.php';
+                                include 'partials/edit_post.php';
                                 break;
                             default :
-                                include 'includes/view_all_posts.php';
+                                include 'partials/view_all_posts.php';
                                 break;
                         }
 
@@ -50,4 +50,4 @@
     </div>
     <!-- /#wrapper -->
 
-<?php include "includes/admin_footer.php"; ?>
+<?php include "partials/admin_footer.php"; ?>

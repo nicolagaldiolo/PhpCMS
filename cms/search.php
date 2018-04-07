@@ -1,8 +1,8 @@
 <?php include "config/config.php"; ?>
-<?php include "includes/header.php"; ?>
+<?php include "partials/header.php"; ?>
 
     <!-- Navigation -->
-    <?php include "includes/navigation.php"; ?>
+    <?php include "partials/navigation.php"; ?>
     <!-- Page Content -->
     <div class="container">
 
@@ -56,7 +56,7 @@
 
             <!-- Blog Sidebar Widgets Column -->
 
-            <?php include "includes/sidebar.php"; ?>
+            <?php include "partials/sidebar.php"; ?>
 
 
         </div>
@@ -64,4 +64,4 @@
 
         <hr>
 
-<?php include "includes/footer.php"; ?>
+<?php include "partials/footer.php"; ?>

@@ -1,10 +1,10 @@
 <?php include "../config/config.php"; ?>
-<?php include "includes/admin_header.php"; ?>
+<?php include "partials/admin_header.php"; ?>
 
     <div id="wrapper">
 
         <!-- Navigation -->
-        <?php include "includes/admin_navigation.php"; ?>
+        <?php include "partials/admin_navigation.php"; ?>
 
         <div id="page-wrapper">
 
@@ -18,7 +18,7 @@
                             <small>Author</small>
                         </h1>
 
-                        <?php include 'includes/view_all_comments.php'; ?>
+                        <?php include 'partials/view_all_comments.php'; ?>
 
                     </div>
 
@@ -34,4 +34,4 @@
     </div>
     <!-- /#wrapper -->
 
-<?php include "includes/admin_footer.php"; ?>
+<?php include "partials/admin_footer.php"; ?>

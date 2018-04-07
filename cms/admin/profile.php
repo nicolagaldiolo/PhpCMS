@@ -1,5 +1,5 @@
 <?php include "../config/config.php"; ?>
-<?php include "includes/admin_header.php"; ?>
+<?php include "partials/admin_header.php"; ?>
 
     <?php
         if(isset($_POST['update_profile'])){
@@ -50,7 +50,7 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <?php include "includes/admin_navigation.php"; ?>
+        <?php include "partials/admin_navigation.php"; ?>
 
         <div id="page-wrapper">
 
@@ -154,4 +154,4 @@ HTML;
     </div>
     <!-- /#wrapper -->
 
-<?php include "includes/admin_footer.php"; ?>
+<?php include "partials/admin_footer.php"; ?>

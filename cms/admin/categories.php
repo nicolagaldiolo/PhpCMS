@@ -1,10 +1,10 @@
 <?php include "../config/config.php"; ?>
-<?php include "includes/admin_header.php"; ?>
+<?php include "partials/admin_header.php"; ?>
 
     <div id="wrapper">
 
         <!-- Navigation -->
-        <?php include "includes/admin_navigation.php"; ?>
+        <?php include "partials/admin_navigation.php"; ?>
 
         <div id="page-wrapper">
 
@@ -34,7 +34,7 @@
                         </form>
 
 
-                        <?php include "includes/update_categories.php"; ?>
+                        <?php include "partials/update_categories.php"; ?>
 
 
                     </div>
@@ -69,4 +69,4 @@
 
 <?php deleteCategories(); ?>
 
-<?php include "includes/admin_footer.php"; ?>
+<?php include "partials/admin_footer.php"; ?>
